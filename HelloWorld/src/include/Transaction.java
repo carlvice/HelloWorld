@@ -17,10 +17,7 @@ public abstract class Transaction {
 	/** The transaction identifier */
 	private long id;
 
-	/**
-	 * The current status of the transaction.
-	 * 
-	 */
+	/** The current status of the transaction. */
 	private TransactionStatus status;
 
 	/** Type of the transaction */
@@ -45,13 +42,17 @@ public abstract class Transaction {
 	private LockMode lockMode;
 
 	/**
-	 * This points to the next transaction object, since all transaction objects are
+	 * A pointer to the next transaction object, since all transaction objects are
 	 * maintained as a linear list.
 	 */
 	public Transaction next;
-	
-	
-	private List <TxOperation> txOpList;
+
+	/**
+	 * List of the operations executed by the transactions, will be used to ensure
+	 * that the operation threads for a particular transaction are executed in order
+	 * and do not result in an illegal schedule.
+	 */
+	private List<TxOperation> txOpList;
 
 	/**
 	 * @return the transaction id
@@ -61,6 +62,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param id the transaction id to set
 	 */
 	public void setId(long id) {
@@ -75,6 +78,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param status the tx status to set
 	 */
 	public void setStatus(TransactionStatus status) {
@@ -89,6 +94,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param type the tx type to set
 	 */
 	public void setType(TransactionType type) {
@@ -103,6 +110,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param sharedObject the sharedObject to set for the tx
 	 */
 	public void setSharedObject(SharedObject sharedObject) {
@@ -117,6 +126,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param semaphoreNumber the semaphoreNumber to set
 	 */
 	public void setSemaphoreNumber(int semaphoreNumber) {
@@ -131,6 +142,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param lockMode the lockMode to set
 	 */
 	public void setLockMode(LockMode lockMode) {
@@ -145,6 +158,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param next the next to set
 	 */
 	public void setNext(Transaction next) {
@@ -159,6 +174,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @param txOpList the txOpList to set
 	 */
 	public void setTxOpList(List<TxOperation> txOpList) {
@@ -205,7 +222,6 @@ public abstract class Transaction {
 
 	public abstract void performReadWrite(LockMode lockMode, long objectNumber);
 
-	/** */
-	public abstract void printTxManager();
+	
 
 }

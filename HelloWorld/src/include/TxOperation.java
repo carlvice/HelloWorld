@@ -1,6 +1,6 @@
 package include;
 
-public class TxOperation implements Runnable{
+public abstract class TxOperation implements Runnable{
 	
 	
 	private int txOpSeqNumber;
@@ -14,13 +14,8 @@ public class TxOperation implements Runnable{
 	
 	private SharedObject sharedObject;
 	
+	
 	private int operationTime;
 	
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-	
 }
+ 

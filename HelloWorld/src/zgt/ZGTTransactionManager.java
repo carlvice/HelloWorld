@@ -7,49 +7,43 @@ import include.TransactionManager;
 
 public class ZGTTransactionManager extends TransactionManager{
 
+	
+
+	public ZGTTransactionManager(int sharedObjectListSize, int sharedObjectInitialValue, String inputFilePath,
+			String outputFilePath) {
+		super(sharedObjectListSize, sharedObjectInitialValue, inputFilePath, outputFilePath);
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
-	public void openLog(File logFile) {
+	public void openLogFile() {
 		// TODO Auto-generated method stub
 		
 	}
-	
 
 	@Override
-	public int beginTx(Transaction transaction) {
+	public void closeLogFile() {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
-	public int commitTx(Transaction transaction) {
+	public void startOperation() {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
-	public int abortTx(Transaction transaction) {
+	public void endOperation() {
 		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	@Override
-	public int txRead(Transaction transaction, int objectNumber) {
+	public void printTxManager() {
 		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int txWrite(Transaction transaction, int objectNumber) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
-	@Override
-	public int endTxManager(Thread thread) {
-		// TODO Auto-generated method stub
-		return 0;
+		
 	}
 
 	
-
 }

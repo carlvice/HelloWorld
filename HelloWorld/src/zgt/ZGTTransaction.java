@@ -36,11 +36,5 @@ public class ZGTTransaction extends Transaction{
 		
 	}
 
-	@Override
-	public void printTxManager() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	
 }

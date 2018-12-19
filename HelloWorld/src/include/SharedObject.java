@@ -2,8 +2,15 @@ package include;
 
 import java.util.concurrent.Semaphore;
 
+/**
+ * @author nived
+ *
+ */
 public class SharedObject {
-
+	
+	
+	private int id;
+	
 	/**
 	 * value of the object
 	 * 
@@ -22,8 +29,9 @@ public class SharedObject {
 	 * 
 	 * @param value value to be assigned to the object
 	 */
-	public SharedObject(int value) {
+	public SharedObject(int id, int value) {
 
+		this.id = id;
 		this.value = value;
 
 	} 
@@ -46,7 +54,14 @@ public class SharedObject {
 	 * @return the mutex
 	 */
 	public Semaphore getSemaphore() {
-		return semaphore;
+		return this.semaphore;
+	}
+
+	/**
+	 * @return the id
+	 */
+	public int getId() {
+		return this.id;
 	}
 
 }
