@@ -17,14 +17,5 @@ public interface Constants {
 	 */
 	public static final int SHARED_OBJECTS_INITIAL_VALUE = 0;
 
-	/**
-	 * The path where input files are stored
-	 */
-	public static final String inputFilePath = "//input//RR.txt";
-	
-	/**
-	 * The path where output files will be created
-	 */
-	public static final String OutputFilePath = "//output//RR.log";
 
 }
