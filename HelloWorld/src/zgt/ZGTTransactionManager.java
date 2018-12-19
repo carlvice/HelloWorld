@@ -1,9 +1,11 @@
+/** @author Nivedita Gautam */
+
+
 package zgt;
 
-import java.io.File;
-
-import Entities.Transaction;
 import include.TransactionManager;
+
+/** This class implements abstract method of TransactionManager class */
 
 public class ZGTTransactionManager extends TransactionManager{
 

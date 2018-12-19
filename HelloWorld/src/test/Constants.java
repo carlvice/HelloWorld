@@ -8,7 +8,7 @@ package test;
 public interface Constants {
 
 	/**
-	 * Number of available shared objects
+	 * Total number of shared objects
 	 */
 	public static final int NUMBER_OF_SHARED_OBJECTS = 10;
 

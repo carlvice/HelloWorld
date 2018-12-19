@@ -11,6 +11,8 @@ import include.LockMode;
 import include.TransactionStatus;
 import include.TransactionType;
 
+/** This class implements abstract method of Transaction class */
+
 public class ZGTTransaction extends Transaction {
 
 	public ZGTTransaction(long id, TransactionStatus status, TransactionType type) {

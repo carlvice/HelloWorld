@@ -5,12 +5,9 @@
 
 package include;
 
-import java.io.File;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-import Entities.SharedObject;
-import Entities.Transaction;
+import Entities.*;
 
 public abstract class TransactionManager {
 
@@ -26,13 +23,13 @@ public abstract class TransactionManager {
 	
 	
 	/**
-	 * 
+	 * Path of input file
 	 * 
 	 */
 	private static String inputFilePath;
 
 	/**
-	 * 
+	 * Path of output file
 	 * 
 	 */
 	private static String outputFilePath;
@@ -56,7 +53,7 @@ public abstract class TransactionManager {
 	}
 
 	/**
-	 * This method will open log file which will passed as argument
+	 * This method will open the log file.
 	 * 
 	 * @param logFile
 	 * 
@@ -64,7 +61,7 @@ public abstract class TransactionManager {
 	public abstract void openLogFile();
 
 	/**
-	 * This method will open log file which will passed as argument
+	 * This method will close the log file.
 	 * 
 	 * @param logFile
 	 * 
@@ -78,6 +75,10 @@ public abstract class TransactionManager {
 	 * this will prevent illegal schedules.
 	 */
 	public abstract void startOperation();
+	
+	/**
+	 * This method ensure that all the lines from log file are executed and will then call closeLogFile() method.
+	 */
 
 	public abstract void endOperation();
 

@@ -59,6 +59,9 @@ public abstract class Transaction {
 	private List<TxOperation> txOpList;
 
 	/**
+	 * 
+	 * A simple getter method
+	 * 
 	 * @return the transaction id
 	 */
 	public long getId() {
@@ -75,6 +78,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple getter method
+	 * 
 	 * @return the tx status
 	 */
 	public TransactionStatus getStatus() {
@@ -91,6 +96,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple setter method
+	 * 
 	 * @return the tx type
 	 */
 	public TransactionType getType() {
@@ -107,6 +114,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple getter method
+	 * 
 	 * @return the sharedObject
 	 */
 	public SharedObject getSharedObject() {
@@ -123,6 +132,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple getter method
+	 * 
 	 * @return the semaphoreNumber for the tx
 	 */
 	public int getSemaphoreNumber() {
@@ -139,6 +150,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 *A simple getter method
+	 *
 	 * @return the lockMode
 	 */
 	public LockMode getLockMode() {
@@ -155,6 +168,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple getter method
+	 * 
 	 * @return the next
 	 */
 	public Transaction getNext() {
@@ -171,6 +186,8 @@ public abstract class Transaction {
 	}
 
 	/**
+	 * A simple getter method
+	 * 
 	 * @return the txOpList
 	 */
 	public List<TxOperation> getTxOpList() {
