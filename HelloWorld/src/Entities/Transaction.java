@@ -196,14 +196,6 @@ public abstract class Transaction {
 	}
 
 	/**
-	 * This method frees all locks held by the transaction. While traversing
-	 * sequentially through the locks held by the transaction, any transaction which
-	 * is blocked because it needs the just released object is unblocked and allowed
-	 * to proceed.
-	 */
-	public abstract void freeLocks();
-
-	/**
 	 * This method removes the tx from the list IF it does not holds any locks, else
 	 * it doesn't
 	 * 
@@ -220,12 +212,25 @@ public abstract class Transaction {
 	 * @param lockMode    lock mode requested by the tx
 	 * @param objectNumer object on which the lock is requested
 	 * 
-	 * @return true if lock is acquired else returns false
+	 * @return true if the lock can be acquired else returns false
 	 */
 	public abstract boolean setLock(LockMode lockMode, long objectNumer);
 
-	public abstract void performReadWrite(LockMode lockMode, long objectNumber);
+	/**
+	 * This method frees all the locks held by the transaction. Any other
+	 * transaction which is blocked because it wants to access the object is
+	 * unblocked and allowed to proceed.
+	 */
+	public abstract void freeLocks();
 
-	
+	/**
+	 * This method performs the actual read and write operations after the lock is
+	 * acquired based on the lock mode.
+	 * 
+	 * @param lockMode
+	 * @param objectNumber
+	 */
+
+	public abstract void performReadWrite(LockMode lockMode, long objectNumber);
 
 }
