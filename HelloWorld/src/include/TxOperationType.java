@@ -1,17 +1,19 @@
+/**
+ * @author Aashish Jha
+ */
+
 package include;
 
 /**
- * 
- * @author Aashish Jha
- *
+ * This enum contains the different types of operations a transaction can
+ * perform.
  */
 
 public enum TxOperationType {
 
 	/**
 	 * It means that a new tx has begun and an entry for that tx will be created in
-	 * the Transaction list
-	 * 
+	 * the Transaction list.
 	 */
 	BEGIN,
 
@@ -41,9 +43,7 @@ public enum TxOperationType {
 	/**
 	 * The abort statement ends tx prematurely because of a problem or fault. In
 	 * strict 2PL, the tx must release all its locks if it aborts.
-	 * 
 	 */
 
 	ABORT
-
 }

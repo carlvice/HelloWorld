@@ -6,12 +6,12 @@
 
 package zgt;
 
-import Entities.Transaction;
+import entity.Transaction;
 import include.LockMode;
 import include.TransactionStatus;
 import include.TransactionType;
 
-/** This class implements abstract method of Transaction class */
+/** This class implements abstract methods of Transaction class */
 
 public class ZGTTransaction extends Transaction {
 

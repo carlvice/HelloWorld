@@ -8,9 +8,13 @@ package include;
 import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
-import Entities.SharedObject;
-import Entities.Transaction;
+import entity.SharedObject;
+import entity.Transaction;
 
+/**
+ * This interface defines th structure the Lock hash table and the methods that
+ * perform operations on it.
+ */
 public interface LockTable {
 
 	/**
@@ -28,9 +32,9 @@ public interface LockTable {
 	public final static HashMap<Integer, HashMap<Integer, LockMode>> LOCK_HASH_TABLE = new HashMap<>();
 
 	/**
-	 * This semaphore is used to restrict the number of threads that can access the lock
-	 * hash table (i.e. 1). It should be acquired before accessing the lock Hash
-	 * Table, and should be released when done.
+	 * This semaphore is used to restrict the number of threads that can access the
+	 * lock hash table (i.e. 1). It should be acquired before accessing the lock
+	 * Hash Table, and should be released when done.
 	 */
 	public final static Semaphore LOCK_TABLE_SEMAPHORE = new Semaphore(1);
 

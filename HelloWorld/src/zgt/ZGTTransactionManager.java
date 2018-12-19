@@ -1,11 +1,10 @@
 /** @author Nivedita Gautam */
 
-
 package zgt;
 
 import include.TransactionManager;
 
-/** This class implements abstract method of TransactionManager class */
+/** This class implements abstract methods of TransactionManager class */
 
 public class ZGTTransactionManager extends TransactionManager{
 

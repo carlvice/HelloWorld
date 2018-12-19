@@ -6,7 +6,7 @@
 package include;
 
 /**
- * This enum denotes the different states of the transaction life-cycle
+ * This enum contains the different states of the transaction life-cycle
  */
 public enum TransactionStatus {
 

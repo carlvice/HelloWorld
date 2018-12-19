@@ -8,10 +8,9 @@ package test;
 
 /**
  * 
- * The entry point for the ZGT Transaction Manager Application It will
- * initialize the Transaction Manager, Hash Table, Transaction List, Shared
- * Objects etc.
- *
+ * The entry point for the ZGT Transaction Manager Application It will create
+ * objects and initialize the Transaction Manager, Hash Table, Transaction List,
+ * Shared Objects etc.
  */
 public class Main {
 

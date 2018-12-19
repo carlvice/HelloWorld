@@ -2,12 +2,12 @@
  *  @author Aashish Jha
  */
 
-package operations;
+package operation;
 
-import Entities.TxOperation;
+import entity.TxOperation;
 
 /**
- * This class is BeginTx Operation thread. This thread will performs the
+ * This class is BeginTx Operation thread. This thread will perform the
  * operations required to begin a transaction.
  */
 public class BeginTxOperation  extends TxOperation{

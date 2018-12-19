@@ -4,11 +4,7 @@
  */
 package include;
 
-/**
- * 
- * This enum denotes denotes the two possible types of a transaction
- *
- */
+/** This enum contains the possible types of a transaction. */
 public enum TransactionType {
 
 	/**
@@ -19,7 +15,7 @@ public enum TransactionType {
 
 	/**
 	 * This denotes that the transaction can perform both read and write operations
-	 * and hence can acquire both Shared and Exclusive locks.
+	 * and hence can request for both Shared and Exclusive locks.
 	 */
 	WRITE
 }

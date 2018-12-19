@@ -3,21 +3,17 @@
  *
  */
 
-package Entities;
+package entity;
 
 import java.util.concurrent.Semaphore;
 
+/** This class describes the attributes of the shared Object entity */
 public class SharedObject {
-	
-	/**
-	 * A unique identifier for the shared object
-	 */
+
+	/** A unique identifier for the shared object */
 	private int id;
-	
-	/**
-	 * value of the object
-	 * 
-	 */
+
+	/** value of the object */
 	private int value;
 
 	/**
@@ -30,6 +26,7 @@ public class SharedObject {
 	 * Constructor for SharedObject object class, initializes the value and creates
 	 * a semaphore for the object
 	 * 
+	 * @param id    identifier to be assigned to the object
 	 * @param value value to be assigned to the object
 	 */
 	public SharedObject(int id, int value) {
@@ -37,7 +34,7 @@ public class SharedObject {
 		this.id = id;
 		this.value = value;
 
-	} 
+	}
 
 	/**
 	 * @return the value of the object
@@ -66,5 +63,4 @@ public class SharedObject {
 	public int getId() {
 		return this.id;
 	}
-
 }

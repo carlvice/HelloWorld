@@ -2,12 +2,12 @@
  *  @author Aashish Jha
  */
 
-package operations;
+package operation;
 
-import Entities.TxOperation;
+import entity.TxOperation;
 
 /**
- * This class is ReadTx Operation thread. This thread will performs the read
+ * This class is ReadTx Operation thread. This thread will perform the read
  * operation for a transaction.
  */
 
@@ -18,5 +18,4 @@ public class ReadTxOperation extends TxOperation {
 		// TODO Auto-generated method stub
 		
 	}
-
 }

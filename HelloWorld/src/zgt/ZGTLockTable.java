@@ -1,14 +1,13 @@
+/**
+ * @author Nivedita Gautam
+ */
 package zgt;
 
-import Entities.SharedObject;
-import Entities.Transaction;
+import entity.SharedObject;
+import entity.Transaction;
 import include.*;
 
-/**
- * 
- * This class implements the abstract methods of the LockTable class
- *
- */
+/** This class implements the abstract methods of the LockTable class. */
 public class ZGTLockTable implements LockTable{
 
 	@Override

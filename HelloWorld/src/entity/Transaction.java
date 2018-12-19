@@ -2,7 +2,7 @@
  * @author Nivedita Gautam
  */
 
-package Entities;
+package entity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +59,6 @@ public abstract class Transaction {
 	private List<TxOperation> txOpList;
 
 	/**
-	 * 
 	 * A simple getter method
 	 * 
 	 * @return the transaction id
@@ -150,7 +149,7 @@ public abstract class Transaction {
 	}
 
 	/**
-	 *A simple getter method
+	 * A simple getter method
 	 *
 	 * @return the lockMode
 	 */
@@ -213,7 +212,7 @@ public abstract class Transaction {
 	}
 
 	/**
-	 * This method removes the tx from the list IF it does not holds any locks, else
+	 * This method removes the tx from the list if it does not holds any locks, else
 	 * it doesn't
 	 * 
 	 * @return true if the tx was removed successfully, else returns false, which

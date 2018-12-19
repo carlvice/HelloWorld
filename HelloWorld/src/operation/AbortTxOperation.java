@@ -2,12 +2,12 @@
  *  @author Aashish Jha
  */
 
-package operations;
+package operation;
 
-import Entities.TxOperation;
+import entity.TxOperation;
 
 /**
- * This class is AbortTx Operation thread. This thread will performs the
+ * This class is AbortTx Operation thread. This thread will perform the
  * operations required to abort a transaction.
  */
 public class AbortTxOperation extends TxOperation {
