@@ -7,14 +7,25 @@ package include;
 
 import java.io.File;
 
-public interface TransactionManager {
+public abstract class TransactionManager {
+	
+	
+	/**
+	 * The first transaction object in the transaction table
+	 */
+	public static Transaction firstTx;
+
+	/**
+	 * The last transaction object in the transaction table
+	 */
+	public static Transaction lastTx;
 
 	/** 
 	 * This method will open log file which will passed as argument 
 	 * @param logFile
 	 *  
 	 * */
-	public void openLog(File logFile);
+	public abstract void openLog(File logFile);
 
 	/**
 	 * This method will start the transaction whose id and type are passed as
@@ -23,7 +34,7 @@ public interface TransactionManager {
 	 * 
 	 * @return
 	 */
-	public int beginTx(Transaction transaction);
+	public abstract int beginTx(Transaction transaction);
 
 	/** This method will commit the transaction whose id is passed as arguments 
 	 * 
@@ -32,7 +43,7 @@ public interface TransactionManager {
 	 * @return
 	 * 
 	 * */
-	public int commitTx(Transaction transaction);
+	public abstract int commitTx(Transaction transaction);
 	
 
 	/** This method will abort the transaction whose id is passed as arguments 
@@ -42,7 +53,7 @@ public interface TransactionManager {
 	 * @return
 	 * 
 	 * */
-	public int abortTx(Transaction transaction);
+	public abstract int abortTx(Transaction transaction);
 	
 
 	/**
@@ -54,7 +65,7 @@ public interface TransactionManager {
 	 * 
 	 * @return
 	 */
-	public int txRead(Transaction transaction, int objectNumber);
+	public abstract int txRead(Transaction transaction, int objectNumber);
 
 	/**
 	 * This method will perform the write operation for transaction whose id is
@@ -65,7 +76,7 @@ public interface TransactionManager {
 	 * 
 	 * @return
 	 */
-	public int txWrite(Transaction transaction, int objectNumber);
+	public abstract int txWrite(Transaction transaction, int objectNumber);
 
 	// Don't know if this required or not
 	/**
@@ -76,6 +87,6 @@ public interface TransactionManager {
 	 * @return
 	 * 
 	 * */
-	public int endTxManager (Thread thread);
+	public abstract int endTxManager (Thread thread);
 
 }

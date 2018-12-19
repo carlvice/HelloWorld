@@ -5,7 +5,7 @@ import java.io.File;
 import include.Transaction;
 import include.TransactionManager;
 
-public class ZGTTransactionManager implements TransactionManager{
+public class ZGTTransactionManager extends TransactionManager{
 
 	@Override
 	public void openLog(File logFile) {
@@ -48,5 +48,7 @@ public class ZGTTransactionManager implements TransactionManager{
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
+	
 
 }
