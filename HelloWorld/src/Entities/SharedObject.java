@@ -21,14 +21,14 @@ public class SharedObject {
 	private int value;
 
 	/**
-	 * This mutex should be acquired before accessing the object, It is used to
+	 * This semaphore should be acquired before accessing the object, It is used to
 	 * restrict the number of threads that can access this object (i.e. 1)
 	 */
 	private Semaphore semaphore = new Semaphore(1);
 
 	/**
 	 * Constructor for SharedObject object class, initializes the value and creates
-	 * a mutex for the object
+	 * a semaphore for the object
 	 * 
 	 * @param value value to be assigned to the object
 	 */
@@ -54,7 +54,7 @@ public class SharedObject {
 	}
 
 	/**
-	 * @return the mutex
+	 * @return the semaphore
 	 */
 	public Semaphore getSemaphore() {
 		return this.semaphore;

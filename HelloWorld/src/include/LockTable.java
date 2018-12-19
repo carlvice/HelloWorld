@@ -28,7 +28,7 @@ public interface LockTable {
 	public final static HashMap<Integer, HashMap<Integer, LockMode>> LOCK_HASH_TABLE = new HashMap<>();
 
 	/**
-	 * This mutex is used to restrict the number of threads that can access the lock
+	 * This semaphore is used to restrict the number of threads that can access the lock
 	 * hash table (i.e. 1). It should be acquired before accessing the lock Hash
 	 * Table, and should be released when done.
 	 */

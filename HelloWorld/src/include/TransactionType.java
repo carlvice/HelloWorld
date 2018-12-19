@@ -6,7 +6,7 @@ package include;
 
 /**
  * 
- * This enum denotes denotes the possible types of a transaction
+ * This enum denotes denotes the two possible types of a transaction
  *
  */
 public enum TransactionType {
