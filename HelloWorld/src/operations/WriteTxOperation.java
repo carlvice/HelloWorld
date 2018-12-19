@@ -4,7 +4,7 @@
 
 package operations;
 
-import include.TxOperation;
+import Entities.TxOperation;
 
 /**
  * This class is WriteTx Operation thread. This thread will performs the write

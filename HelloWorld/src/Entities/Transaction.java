@@ -2,10 +2,14 @@
  * @author Nivedita Gautam
  */
 
-package include;
+package Entities;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import include.LockMode;
+import include.TransactionStatus;
+import include.TransactionType;
 
 /**
  * The Transaction class is used to represent all transactions in the system.

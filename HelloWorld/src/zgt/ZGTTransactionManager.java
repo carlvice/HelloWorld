@@ -2,7 +2,7 @@ package zgt;
 
 import java.io.File;
 
-import include.Transaction;
+import Entities.Transaction;
 import include.TransactionManager;
 
 public class ZGTTransactionManager extends TransactionManager{

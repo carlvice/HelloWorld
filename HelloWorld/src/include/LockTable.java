@@ -8,6 +8,9 @@ package include;
 import java.util.HashMap;
 import java.util.concurrent.Semaphore;
 
+import Entities.SharedObject;
+import Entities.Transaction;
+
 public interface LockTable {
 
 	/**
@@ -18,7 +21,7 @@ public interface LockTable {
 	 * 
 	 * <ul>
 	 * <li>Key: <Integer> - SharedObject which is locked,</li>
-	 * <li>Value: HashMap < Integer - Id of the tx which has lock on the
+	 * <li>Value: HashMap < Integer - Id of the transaction which has lock on the
 	 * SharedObject, LockMode - The type of lock ></li>
 	 * </ul>
 	 */
@@ -54,23 +57,23 @@ public interface LockTable {
 	public boolean findSharedObject(SharedObject sharedObject, Transaction transaction);
 
 	/**
-	 * Adds an entry for a lock to the Lock Hash Table
+	 * Adds an entry to the Lock Hash Table
 	 * 
 	 * @param transaction  The transaction object who wants to acquire the lock
-	 * @param objectNumber The object on which tx wants to acquire the lock
+	 * @param objectNumber The object on which transaction wants to acquire the lock
 	 * @param lockMode     The lock mode requested by the transaction i.e. 'S' or
 	 *                     'X'
 	 */
-	public boolean addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode);
+	public void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode);
 
 	/**
 	 * Removes an entry from the Lock Hash Table
 	 * 
 	 * @param transaction  The transaction object holding the lock
-	 * @param objectNumber The object on which tx holds the lock
+	 * @param objectNumber The object on which transaction holds the lock
 	 * @param lockMode     The lock mode held by the transaction i.e. 'S' or 'X'
 	 */
-	public boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode);
+	public void removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode);
 
 	/**
 	 * Prints the hash table. Shows all the objects along with the lock mode and

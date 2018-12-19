@@ -1,14 +1,17 @@
-package include;
+/**
+ * @author Nivedita Gautam
+ *
+ */
+
+package Entities;
 
 import java.util.concurrent.Semaphore;
 
-/**
- * @author nived
- *
- */
 public class SharedObject {
 	
-	
+	/**
+	 * A unique identifier for the shared object
+	 */
 	private int id;
 	
 	/**

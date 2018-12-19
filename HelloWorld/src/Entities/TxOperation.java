@@ -4,7 +4,9 @@
  *
  */
 
-package include;
+package Entities;
+
+import include.TxOperationType;
 
 /**
  * This is transaction operation class. Each statement in the log file will be converted to corresponding operation for the transaction

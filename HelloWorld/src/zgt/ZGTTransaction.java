@@ -1,7 +1,7 @@
 package zgt;
 
+import Entities.Transaction;
 import include.LockMode;
-import include.Transaction;
 import include.TransactionStatus;
 import include.TransactionType;
 

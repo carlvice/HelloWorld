@@ -9,6 +9,9 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import Entities.SharedObject;
+import Entities.Transaction;
+
 public abstract class TransactionManager {
 
 	/**

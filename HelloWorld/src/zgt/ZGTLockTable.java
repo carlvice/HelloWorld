@@ -1,7 +1,14 @@
 package zgt;
 
+import Entities.SharedObject;
+import Entities.Transaction;
 import include.*;
 
+/**
+ * 
+ * This class implements the abstract methods of the LockTable class
+ *
+ */
 public class ZGTLockTable implements LockTable{
 
 	@Override
@@ -17,15 +24,15 @@ public class ZGTLockTable implements LockTable{
 	}
 
 	@Override
-	public boolean addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
+	public void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
-	public boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
+	public void removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
 	@Override
@@ -33,4 +40,5 @@ public class ZGTLockTable implements LockTable{
 		// TODO Auto-generated method stub
 		
 	}
+	
 }
