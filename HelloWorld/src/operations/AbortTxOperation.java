@@ -1,17 +1,14 @@
 /**
- * 
- * @author Aashish Jha
- *
+ *  @author Aashish Jha
  */
+
 package operations;
 
 import include.TxOperation;
 
 /**
- * 
- * The class denotes AbortTx Operation which is type of TxOperation. This thread
- * will be started when the tx aborts
- *
+ * This class is AbortTx Operation thread. This thread will performs the
+ * operations required to abort a transaction.
  */
 public class AbortTxOperation extends TxOperation {
 

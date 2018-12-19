@@ -1,5 +1,5 @@
 /**
- *  @author Nivedita Gautam
+ *  @author Aashish Jha
  */
 
 package operations;
@@ -7,9 +7,10 @@ package operations;
 import include.TxOperation;
 
 /**
- *
- *
+ * This class is ReadTx Operation thread. This thread will performs the read
+ * operation for a transaction.
  */
+
 public class ReadTxOperation extends TxOperation {
 
 	@Override
