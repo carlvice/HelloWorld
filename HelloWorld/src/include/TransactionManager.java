@@ -6,6 +6,7 @@
 package include;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 import entity.*;
@@ -20,23 +21,23 @@ public abstract class TransactionManager {
 	/**
 	 * The first transaction object in the transaction table
 	 */
-	private static Transaction firstTx;
+	public static Transaction firstTx;
 
 	/**
 	 * The last transaction object in the transaction table
 	 */
-	private static Transaction lastTx;
+	public static Transaction lastTx;
 
 	/**
 	 * Path of input file
 	 */
-	private static String inputFilePath;
+	public static String inputFilePath;
 
 	/**
 	 * Path of output file
 	 * 
 	 */
-	private static String outputFilePath;
+	public static String outputFilePath;
 
 	public static List<SharedObject> sharedObjectList;
 
@@ -58,9 +59,8 @@ public abstract class TransactionManager {
 
 	/**
 	 * This method will open the log file.
-	 * @throws FileNotFoundException 
 	 */
-	public abstract void openLogFile() throws FileNotFoundException;
+	public abstract void openLogFile();
 
 	/**
 	 * This method will close the log file.
@@ -72,8 +72,10 @@ public abstract class TransactionManager {
 	 * corresponding thread based on the type of operation. The operation thread
 	 * will wait for previous operations of the same tx to finish before starting,
 	 * this will prevent illegal schedules.
+	 * @throws FileNotFoundException 
+	 * @throws IOException 
 	 */
-	public abstract void startOperation();
+	public abstract void startOperation() throws FileNotFoundException, IOException;
 
 	/**
 	 * This method ensure that all the lines from log file are executed and will

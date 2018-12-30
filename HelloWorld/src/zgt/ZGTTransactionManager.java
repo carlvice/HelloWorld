@@ -6,6 +6,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 import include.TransactionManager;
@@ -14,14 +15,10 @@ import include.TransactionManager;
 
 public class ZGTTransactionManager extends TransactionManager{
 
-	File logFile;
-	FileReader fileReader;
-	BufferedReader bufferedReader;
-
 	public ZGTTransactionManager(int sharedObjectListSize, int sharedObjectInitialValue, String inputFilePath,
 			String outputFilePath) {
 		super(sharedObjectListSize, sharedObjectInitialValue, inputFilePath, outputFilePath);
-		logFile=new File(inputFilePath);
+		
 		
 		
 		
@@ -29,12 +26,8 @@ public class ZGTTransactionManager extends TransactionManager{
 	}
 
 	@Override
-	public void openLogFile() throws FileNotFoundException {
+	public void openLogFile() {
 		// TODO Auto-generated method stub
-		
-		fileReader=new FileReader(logFile);
-		bufferedReader=new BufferedReader(fileReader);
-		
 		
 	}
 
@@ -45,8 +38,12 @@ public class ZGTTransactionManager extends TransactionManager{
 	}
 
 	@Override
-	public void startOperation() {
+	public void startOperation() throws FileNotFoundException,IOException {
 		// TODO Auto-generated method stub
+		File logFile = new File(inputFilePath);;
+		FileReader fileReader = new FileReader(logFile);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		while(bufferedReader.readLine().contains("//"));
 		
 	}
 
