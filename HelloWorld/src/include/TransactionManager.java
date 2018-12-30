@@ -11,7 +11,8 @@ import entity.*;
 
 /**
  * This abstract class declares the attributes and functionalities of the
- * transaction manager. The TM maintains a linked list of the active transactions.
+ * transaction manager. The TM maintains a linked list of the active
+ * transactions.
  */
 public abstract class TransactionManager {
 
@@ -56,17 +57,11 @@ public abstract class TransactionManager {
 
 	/**
 	 * This method will open the log file.
-	 * 
-	 * @param logFile
-	 * 
 	 */
 	public abstract void openLogFile();
 
 	/**
 	 * This method will close the log file.
-	 * 
-	 * @param logFile
-	 * 
 	 */
 	public abstract void closeLogFile();
 

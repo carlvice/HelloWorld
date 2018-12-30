@@ -19,7 +19,7 @@ import include.TransactionType;
 public abstract class Transaction {
 
 	/** The transaction identifier */
-	private long id;
+	private int id;
 
 	/** The current status of the transaction. */
 	private TransactionStatus status;
@@ -63,7 +63,7 @@ public abstract class Transaction {
 	 * 
 	 * @return the transaction id
 	 */
-	public long getId() {
+	public int getId() {
 		return id;
 	}
 
@@ -72,7 +72,7 @@ public abstract class Transaction {
 	 * 
 	 * @param id the transaction id to set
 	 */
-	public void setId(long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -202,8 +202,14 @@ public abstract class Transaction {
 		this.txOpList = txOpList;
 	}
 
-	/** Constructor to initialize the attributes of the Transaction */
-	public Transaction(long id, TransactionStatus status, TransactionType type) {
+	/**
+	 * Constructor to initialize the attributes of the Transaction
+	 * 
+	 * @param id     tx id to set
+	 * @param status tx status to set
+	 * @param type   tx type to set
+	 */
+	public Transaction(int id, TransactionStatus status, TransactionType type) {
 
 		this.id = id;
 		this.status = status;
@@ -243,10 +249,11 @@ public abstract class Transaction {
 	 * This method performs the actual read and write operations after the lock is
 	 * acquired based on the lock mode.
 	 * 
-	 * @param lockMode
-	 * @param objectNumber
+	 * @param lockMode     the lock mode acquired, the operation will be performed
+	 *                     based on the lock mode
+	 * @param sharedObject the object on which the operation will be performed
 	 */
 
-	public abstract void performReadWrite(LockMode lockMode, long objectNumber);
+	public abstract void performReadWrite(LockMode lockMode, SharedObject sharedObject);
 
 }

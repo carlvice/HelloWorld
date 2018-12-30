@@ -3,6 +3,9 @@
  *
  */
 
+/**
+ * klkknk
+ */
 package entity;
 
 import java.util.concurrent.Semaphore;
@@ -44,7 +47,7 @@ public class SharedObject {
 	}
 
 	/**
-	 * @param number the number to set
+	 * @param value the number to set
 	 */
 	public void setValue(int value) {
 		this.value = value;

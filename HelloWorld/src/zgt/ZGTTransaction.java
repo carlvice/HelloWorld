@@ -6,6 +6,7 @@
 
 package zgt;
 
+import entity.SharedObject;
 import entity.Transaction;
 import include.LockMode;
 import include.TransactionStatus;
@@ -15,15 +16,15 @@ import include.TransactionType;
 
 public class ZGTTransaction extends Transaction {
 
-	public ZGTTransaction(long id, TransactionStatus status, TransactionType type) {
+	public ZGTTransaction(int id, TransactionStatus status, TransactionType type) {
 		super(id, status, type);
 		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void freeLocks() {
+	public boolean removeTx() {
 		// TODO Auto-generated method stub
-
+		return false;
 	}
 
 	@Override
@@ -33,15 +34,16 @@ public class ZGTTransaction extends Transaction {
 	}
 
 	@Override
-	public void performReadWrite(LockMode lockMode, long objectNumber) {
+	public void freeLocks() {
 		// TODO Auto-generated method stub
-
+		
 	}
 
 	@Override
-	public boolean removeTx() {
+	public void performReadWrite(LockMode lockMode, SharedObject sharedObject) {
 		// TODO Auto-generated method stub
-		return false;
+		
 	}
 
+	
 }
