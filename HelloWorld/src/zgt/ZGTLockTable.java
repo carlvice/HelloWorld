@@ -111,7 +111,6 @@ public class ZGTLockTable implements LockTable {
 				System.out.println(objId+"\t"+txId+"\t"+lockMode);
 			}
 		}	
-		
 		System.out.println("****************** End ******************");
 	}
 }
