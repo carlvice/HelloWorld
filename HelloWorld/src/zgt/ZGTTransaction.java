@@ -43,7 +43,5 @@ public class ZGTTransaction extends Transaction {
 	public void performReadWrite(LockMode lockMode, SharedObject sharedObject) {
 		// TODO Auto-generated method stub
 		
-	}
-
-	
+	}	
 }
