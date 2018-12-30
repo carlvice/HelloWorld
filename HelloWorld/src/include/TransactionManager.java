@@ -5,6 +5,7 @@
 
 package include;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 import entity.*;
@@ -57,8 +58,9 @@ public abstract class TransactionManager {
 
 	/**
 	 * This method will open the log file.
+	 * @throws FileNotFoundException 
 	 */
-	public abstract void openLogFile();
+	public abstract void openLogFile() throws FileNotFoundException;
 
 	/**
 	 * This method will close the log file.
