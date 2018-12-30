@@ -1,6 +1,6 @@
 # Zeitgeist Transaction Manager
 
-This project is the Java Implemetation of the Zeitgeist Transaction Manager
+This project is the Java Implemetation of the Zeitgeist Transaction Manager in C.
 
 
 ### Reference - 
