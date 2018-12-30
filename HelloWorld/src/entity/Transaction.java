@@ -226,6 +226,11 @@ public abstract class Transaction {
 	 *         list
 	 */
 	public abstract boolean removeTx();
+	
+	/**
+	 * This method adds the tx to the list
+	 */
+	public abstract void addTx();
 
 	/**
 	 * This method attempts to acquire the specified lock on the given object for

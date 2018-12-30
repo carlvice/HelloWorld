@@ -20,7 +20,15 @@ public class ZGTTransaction extends Transaction {
 		super(id, status, type);
 		// TODO Auto-generated constructor stub
 	}
+	
 
+	@Override
+	public void addTx() {
+		
+		if (true);
+		
+	}	
+	
 	@Override
 	public boolean removeTx() {
 		// TODO Auto-generated method stub
@@ -43,5 +51,6 @@ public class ZGTTransaction extends Transaction {
 	public void performReadWrite(LockMode lockMode, SharedObject sharedObject) {
 		// TODO Auto-generated method stub
 		
-	}	
+	}
+
 }

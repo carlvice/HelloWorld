@@ -7,6 +7,7 @@
 package test;
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 
 import zgt.ZGTTransactionManager;
 
@@ -28,6 +29,7 @@ public class Main {
 		ZGTTransactionManager zgtTransactionManager = new ZGTTransactionManager(numberOfSharedObjects,
 				sharedObjectInitialValue, inputFile, "");
 		
+		// Start the transaction
 		try {
 			
 			zgtTransactionManager.startOperation();
@@ -35,6 +37,9 @@ public class Main {
 		catch (FileNotFoundException fnfe) {
 			
 			System.out.println("ERROR: Could not find the input file");
+		}
+		catch (IOException ioe) {
+			// TODO: handle exception
 		}
 	}
 }
