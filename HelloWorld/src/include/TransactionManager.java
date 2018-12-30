@@ -65,7 +65,7 @@ public abstract class TransactionManager {
 	/**
 	 * This method will close the log file.
 	 */
-	public abstract void closeLogFile();
+	public abstract void closeLogFile() throws FileNotFoundException;
 
 	/**
 	 * This method will read the operations from the log file one by one and start a
@@ -73,7 +73,7 @@ public abstract class TransactionManager {
 	 * will wait for previous operations of the same tx to finish before starting,
 	 * this will prevent illegal schedules.
 	 */
-	public abstract void startOperation();
+	public abstract void startOperation() throws FileNotFoundException;
 
 	/**
 	 * This method ensure that all the lines from log file are executed and will

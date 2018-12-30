@@ -45,8 +45,10 @@ public class ZGTTransactionManager extends TransactionManager{
 	}
 
 	@Override
-	public void startOperation() {
+	public void startOperation() throws FileNotFoundException{
 		// TODO Auto-generated method stub
+		
+		openLogFile();
 		
 	}
 

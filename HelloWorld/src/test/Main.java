@@ -1,10 +1,14 @@
 /**
  * 
- * @author Aashish Jha
+ * @author Nivedita Gautam
  *
  */
 
 package test;
+
+import java.io.FileNotFoundException;
+
+import zgt.ZGTTransactionManager;
 
 /**
  * 
@@ -15,8 +19,22 @@ package test;
 public class Main {
 
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 
+		int numberOfSharedObjects = 10;
+		int sharedObjectInitialValue = 0;
+		String inputFile = "";
+
+		// Start the TM
+		ZGTTransactionManager zgtTransactionManager = new ZGTTransactionManager(numberOfSharedObjects,
+				sharedObjectInitialValue, inputFile, "");
+		
+		try {
+			
+			zgtTransactionManager.startOperation();
+		}
+		catch (FileNotFoundException fnfe) {
+			
+			System.out.println("ERROR: Could not find the input file");
+		}
 	}
-
 }
