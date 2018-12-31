@@ -57,8 +57,6 @@ public class ZGTTransaction extends Transaction {
 	public boolean removeTx() {
 
 		// check if the tx holds any locks
-		
-		boolean holdsLock = false;
 
 		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LockTable.LOCK_HASH_TABLE.entrySet().iterator();
 
@@ -76,30 +74,38 @@ public class ZGTTransaction extends Transaction {
 				Map.Entry<Integer, LockMode> valueEntry = j.next();
 
 				Integer txId = valueEntry.getKey();
-				
+
 				if (txId == this.getId()) {
-					
-					holdsLock = true;
-					break;
+
+					System.out.println("REMOVE_TX_ERROR: Tx holds lock on " + objId + ", cannot be removed.");
+					return false;
 				}
 			}
 		}
-		
-		// if the tx does not holds lock
-		if (!holdsLock) {
-			
-			Transaction ptr = TransactionManager.firstTx;
-			
-			while (ptr.next != null) {
-			
-				
-			}
-			
-			
-			
-			
-		}
 
+		// if the tx does not holds lock
+
+		Transaction ptr = TransactionManager.firstTx;
+		Transaction prev = ptr;
+
+		// loop till we find the tx
+		while (ptr != null) {
+
+			// tx found
+			if (ptr.getId() == this.getId()) {
+
+				prev.next = ptr.next;
+				
+				System.out.println("REMOVE_TX_SUCCESS: Tx removed.");
+				return true;
+			}
+
+			prev = ptr;
+			ptr = ptr.next;
+		}
+		
+		// tx not found
+		System.out.println("REMOVE_TX_ERROR: Tx not found.");
 		return false;
 	}
 
@@ -111,7 +117,8 @@ public class ZGTTransaction extends Transaction {
 
 	@Override
 	public void freeLocks() {
-		// TODO Auto-generated method stub
+		
+		
 
 	}
 

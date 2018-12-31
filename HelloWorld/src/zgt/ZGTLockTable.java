@@ -71,14 +71,23 @@ public class ZGTLockTable implements LockTable {
 						LockTable.LOCK_HASH_TABLE.remove(sharedObject.getId());
 					}
 
+					System.out.println("REMOVE_ENTRY_SUCCESS: Entry was removed from HT.");
 					return true;
+
 				} else {
+
+					System.out.println("REMOVE_ENTRY_ERROR: Entry not found, lock Mode did not match.");
 					return false;
 				}
 			} else {
+
+				System.out.println("REMOVE_ENTRY_ERROR: Entry not found, tx does not hold lock.");
 				return false;
 			}
 		} else {
+
+			System.out.println("REMOVE_ENTRY_ERROR: Entry not found, no lock on shared obj: "
+					+ sharedObject.getId() + ".");
 			return false;
 		}
 	}
@@ -86,7 +95,7 @@ public class ZGTLockTable implements LockTable {
 	@Override
 	public void printHashTable() {
 		// TODO Auto-generated method stub
-		
+
 		System.out.println("****************** Lock Hash Table ******************");
 		System.out.println("Object ID\tTransaction ID\tLock Mode");
 
@@ -95,23 +104,23 @@ public class ZGTLockTable implements LockTable {
 		while (i.hasNext()) {
 
 			Map.Entry<Integer, HashMap<Integer, LockMode>> HTEntry = i.next();
-			
+
 			Integer objId = HTEntry.getKey();
 			HashMap<Integer, LockMode> valueHashMap = HTEntry.getValue();
-			
-			Iterator <Entry<Integer, LockMode>> j = valueHashMap.entrySet().iterator();
-			
+
+			Iterator<Entry<Integer, LockMode>> j = valueHashMap.entrySet().iterator();
+
 			while (j.hasNext()) {
-				
+
 				Map.Entry<Integer, LockMode> valueEntry = j.next();
-				
+
 				Integer txId = valueEntry.getKey();
 				LockMode lockMode = valueEntry.getValue();
-				
-				System.out.println(objId+"\t"+txId+"\t"+lockMode);
+
+				System.out.println(objId + "\t" + txId + "\t" + lockMode);
 			}
-		}	
-		
+		}
+
 		System.out.println("****************** End ******************");
 	}
 }
