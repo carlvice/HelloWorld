@@ -95,7 +95,7 @@ public class ZGTTransaction extends Transaction {
 			if (ptr.getId() == this.getId()) {
 
 				prev.next = ptr.next;
-				
+
 				System.out.println("REMOVE_TX_SUCCESS: Tx removed.");
 				return true;
 			}
@@ -103,7 +103,7 @@ public class ZGTTransaction extends Transaction {
 			prev = ptr;
 			ptr = ptr.next;
 		}
-		
+
 		// tx not found
 		System.out.println("REMOVE_TX_ERROR: Tx not found.");
 		return false;
@@ -117,9 +117,27 @@ public class ZGTTransaction extends Transaction {
 
 	@Override
 	public void freeLocks() {
-		
-		
 
+		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LockTable.LOCK_HASH_TABLE.entrySet().iterator();
+		
+		// Loop through the HT
+		while (i.hasNext()) {
+
+			Map.Entry<Integer, HashMap<Integer, LockMode>> HTEntry = i.next();
+
+			Integer objId = HTEntry.getKey();
+			HashMap<Integer, LockMode> valueHashMap = HTEntry.getValue();
+			
+			// if an object has an entry for tx, remove it
+			valueHashMap.remove(this.getId());
+			
+			// if object has no more locks left
+			if (valueHashMap.size() == 0) {
+				
+				// remove object's entry from the HT
+				LockTable.LOCK_HASH_TABLE.remove(objId);
+			}	
+		}
 	}
 
 	@Override
