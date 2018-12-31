@@ -117,6 +117,14 @@ public class ZGTTransaction extends Transaction {
 
 	@Override
 	public void freeLocks() {
+		
+		try {
+			// acquire semaphore before accessing HT
+			LockTable.LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LockTable.LOCK_HASH_TABLE.entrySet().iterator();
 		
@@ -138,12 +146,13 @@ public class ZGTTransaction extends Transaction {
 				LockTable.LOCK_HASH_TABLE.remove(objId);
 			}	
 		}
+		
+		LockTable.LOCK_TABLE_SEMAPHORE.release();
 	}
 
 	@Override
 	public void performReadWrite(LockMode lockMode, SharedObject sharedObject) {
-		// TODO Auto-generated method stub
-
+		
+		
 	}
-
 }

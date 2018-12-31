@@ -18,36 +18,76 @@ public class ZGTLockTable implements LockTable {
 	@Override
 	public boolean findSharedObject(SharedObject sharedObject) {
 		
-		return LockTable.LOCK_HASH_TABLE.containsKey(sharedObject.getId());
-
+		try {
+			// acquire semaphore before accessing HT
+			LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		boolean found = LOCK_HASH_TABLE.containsKey(sharedObject.getId());
+		
+		LOCK_TABLE_SEMAPHORE.release();
+		
+		return found;
 	}
 
 	@Override
 	public LockMode findSharedObject(SharedObject sharedObject, Transaction transaction) {
-		
-		HashMap<Integer, LockMode> valueHashMap = LockTable.LOCK_HASH_TABLE.get(sharedObject.getId());
 
-		return valueHashMap.get(transaction.getId());
+		try {
+			// acquire semaphore before accessing HT
+			LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
+		HashMap<Integer, LockMode> valueHashMap = LOCK_HASH_TABLE.get(sharedObject.getId());
+
+		LockMode lockMode = valueHashMap.get(transaction.getId());
+
+		// release semaphore when done.
+		LOCK_TABLE_SEMAPHORE.release();
+
+		return lockMode;
 	}
 
 	@Override
 	public void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		
-		HashMap<Integer, LockMode> valueHashMap = LockTable.LOCK_HASH_TABLE.get(sharedObject.getId());
+		try {
+			// acquire semaphore before accessing HT
+			LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		HashMap<Integer, LockMode> valueHashMap = LOCK_HASH_TABLE.get(sharedObject.getId());
 
 		valueHashMap.put(transaction.getId(), lockMode);
-		LockTable.LOCK_HASH_TABLE.put(sharedObject.getId(), valueHashMap);
+		LOCK_HASH_TABLE.put(sharedObject.getId(), valueHashMap);
+		
+		LOCK_TABLE_SEMAPHORE.release();
 	}
 
 	@Override
 	public boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		
+		try {
+			// acquire semaphore before accessing HT
+			LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 		// if HT has an entry for the object
+		if (LOCK_HASH_TABLE.containsKey(sharedObject.getId())) {
 
-		if (LockTable.LOCK_HASH_TABLE.containsKey(sharedObject.getId())) {
-
-			HashMap<Integer, LockMode> valueHashMap = LockTable.LOCK_HASH_TABLE.get(sharedObject.getId());
+			HashMap<Integer, LockMode> valueHashMap = LOCK_HASH_TABLE.get(sharedObject.getId());
 
 			// if the tx has a lock
 			if (valueHashMap.containsKey(transaction.getId())) {
@@ -64,8 +104,10 @@ public class ZGTLockTable implements LockTable {
 					if (valueHashMap.size() == 0) {
 
 						// remove its entry from the Hash Table
-						LockTable.LOCK_HASH_TABLE.remove(sharedObject.getId());
+						LOCK_HASH_TABLE.remove(sharedObject.getId());
 					}
+					
+					LOCK_TABLE_SEMAPHORE.release();
 
 					System.out.println("REMOVE_ENTRY_SUCCESS: Entry was removed from HT.");
 					return true;
@@ -82,19 +124,27 @@ public class ZGTLockTable implements LockTable {
 			}
 		} else {
 
-			System.out.println("REMOVE_ENTRY_ERROR: Entry not found, no lock on shared obj: "
-					+ sharedObject.getId() + ".");
+			System.out.println(
+					"REMOVE_ENTRY_ERROR: Entry not found, no lock on shared obj: " + sharedObject.getId() + ".");
 			return false;
 		}
 	}
 
 	@Override
 	public void printHashTable() {
-		
+
 		System.out.println("****************** Lock Hash Table ******************");
 		System.out.println("Object ID\tTransaction ID\tLock Mode");
-
-		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LockTable.LOCK_HASH_TABLE.entrySet().iterator();
+		
+		try {
+			// acquire semaphore before accessing HT
+			LOCK_TABLE_SEMAPHORE.acquire();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LOCK_HASH_TABLE.entrySet().iterator();
 
 		while (i.hasNext()) {
 
@@ -115,7 +165,8 @@ public class ZGTLockTable implements LockTable {
 				System.out.println(objId + "\t" + txId + "\t" + lockMode);
 			}
 		}
-
+		
+		LOCK_TABLE_SEMAPHORE.release();
 		System.out.println("****************** End ******************");
 	}
 }
