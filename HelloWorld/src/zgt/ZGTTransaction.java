@@ -88,7 +88,12 @@ public class ZGTTransaction extends Transaction {
 		// if the tx does not holds lock
 		if (!holdsLock) {
 			
+			Transaction ptr = TransactionManager.firstTx;
 			
+			while (ptr.next != null) {
+			
+				
+			}
 			
 			
 			
