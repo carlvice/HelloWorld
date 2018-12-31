@@ -17,16 +17,14 @@ public class ZGTLockTable implements LockTable {
 
 	@Override
 	public boolean findSharedObject(SharedObject sharedObject) {
-		// TODO Auto-generated method stub
-
+		
 		return LockTable.LOCK_HASH_TABLE.containsKey(sharedObject.getId());
 
 	}
 
 	@Override
 	public LockMode findSharedObject(SharedObject sharedObject, Transaction transaction) {
-		// TODO Auto-generated method stub
-
+		
 		HashMap<Integer, LockMode> valueHashMap = LockTable.LOCK_HASH_TABLE.get(sharedObject.getId());
 
 		return valueHashMap.get(transaction.getId());
@@ -35,8 +33,7 @@ public class ZGTLockTable implements LockTable {
 
 	@Override
 	public void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
-		// TODO Auto-generated method stub
-
+		
 		HashMap<Integer, LockMode> valueHashMap = LockTable.LOCK_HASH_TABLE.get(sharedObject.getId());
 
 		valueHashMap.put(transaction.getId(), lockMode);
@@ -45,8 +42,7 @@ public class ZGTLockTable implements LockTable {
 
 	@Override
 	public boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
-		// TODO Auto-generated method stub
-
+		
 		// if HT has an entry for the object
 
 		if (LockTable.LOCK_HASH_TABLE.containsKey(sharedObject.getId())) {
@@ -94,8 +90,7 @@ public class ZGTLockTable implements LockTable {
 
 	@Override
 	public void printHashTable() {
-		// TODO Auto-generated method stub
-
+		
 		System.out.println("****************** Lock Hash Table ******************");
 		System.out.println("Object ID\tTransaction ID\tLock Mode");
 
