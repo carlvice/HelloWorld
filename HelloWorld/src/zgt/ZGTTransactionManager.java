@@ -43,7 +43,16 @@ public class ZGTTransactionManager extends TransactionManager{
 		File logFile = new File(inputFilePath);;
 		FileReader fileReader = new FileReader(logFile);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		while(bufferedReader.readLine().contains("//"));
+		String lines="";
+		while((lines=bufferedReader.readLine()).contains("//"));
+		TransactionManager.outputFilePath=lines.split(" ")[1];
+		while((lines=bufferedReader.readLine())!=null)
+		{
+			
+		}
+		
+		
+		
 		
 	}
 
