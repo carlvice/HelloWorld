@@ -13,20 +13,28 @@ import include.TxOperationType;
  * operations required to begin a transaction.
  */
 public class BeginTxOperation  extends TxOperation{
-
-	public BeginTxOperation(Transaction ownerTx, TxOperationType txOpType, int txOpSeqNumber) {
+	
+	public BeginTxOperation(int ownerTx, TxOperationType txOpType, int txOpSeqNumber) {
 		
-		setOwnerTx(ownerTx);
+		setownerTxId(ownerTx);
 		setTxOpType(txOpType);
 		setTxOpSeqNumber(txOpSeqNumber);
 		
 		setOperationTime((int)(Math.random()*1000+1000));
 	}
-	
+
 	@Override
 	public void run() {
 		// TODO Auto-generated method stub
-		
+		System.out.println("SUCCESS : Begin Thread running "+getownerTxId());
+		try {
+			Thread.sleep(getOperationTime());
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			System.out.println("EXCEPTION : BeginTxOpeartion-Sleep intruupted ");
+		}
+		System.out.println("SUCCESS : Begin Thread Ended "+getownerTxId());
 	}
-
+	
+	
 }

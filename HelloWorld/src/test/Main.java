@@ -27,7 +27,7 @@ public class Main {
 
 		// Start the TM
 		ZGTTransactionManager zgtTransactionManager = new ZGTTransactionManager(numberOfSharedObjects,
-				sharedObjectInitialValue, inputFile, "");
+				sharedObjectInitialValue, "Test.txt", "");
 		
 		// Start the transaction
 		try {
@@ -40,6 +40,9 @@ public class Main {
 		}
 		catch (IOException ioe) {
 			// TODO: handle exception
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }

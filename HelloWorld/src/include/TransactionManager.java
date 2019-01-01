@@ -74,9 +74,10 @@ public abstract class TransactionManager {
 	 * this will prevent illegal schedules.
 	 * @throws FileNotFoundException 
 	 * @throws IOException 
+	 * @throws InterruptedException 
 	 */
 
-	public abstract void startOperation() throws FileNotFoundException, IOException;
+	public abstract void startOperation() throws FileNotFoundException, IOException, InterruptedException;
 	
 	/**
 	 * This method ensure that all the lines from log file are executed and will
@@ -89,5 +90,17 @@ public abstract class TransactionManager {
 	 * Prints the current snapshot of the transaction manager
 	 */
 	public abstract void printTxManager();
+	
+	
+	/**
+	 * Return the instance of Transaction from its Id, if it exists in transactions list else returns null
+	 */
+	public abstract Transaction getTxFromId(int txId);
+	
+
+	/**
+	 * Return the instance of SharedObject from the Id, if it exists in SharedObjects list else returns null
+	 */
+	public abstract SharedObject getObjectFromId(int objId);
 
 }

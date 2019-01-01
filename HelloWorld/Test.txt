@@ -1,0 +1,9 @@
+// serial history
+// 2 transactions
+// same object accessed
+// multiple times
+Log S2T.log
+BeginTx 1 W
+Read    1 1
+BeginTx 2 R
+read    2 2

@@ -14,13 +14,13 @@ import include.TxOperationType;
  * TxOperation object.
  */
 
-public abstract class TxOperation implements Runnable {
+public abstract class TxOperation extends Thread {
 
 	/** The Tx operation sequence number will ensures that the schedule is legal. */
 	private int txOpSeqNumber;
 
 	/** The owner is the transaction to whom this operation belongs to. */
-	private Transaction ownerTx;
+	private int ownerTxId;
 
 	/**
 	 * Tx operation type specifies the type of operation (Begin, Read, Write, Abort
@@ -65,8 +65,8 @@ public abstract class TxOperation implements Runnable {
 	 * 
 	 * @return the ownerTx
 	 */
-	public Transaction getOwnerTx() {
-		return ownerTx;
+	public int getownerTxId() {
+		return ownerTxId;
 	}
 
 	/**
@@ -74,8 +74,8 @@ public abstract class TxOperation implements Runnable {
 	 * 
 	 * @param ownerTx the ownerTx to set
 	 */
-	public void setOwnerTx(Transaction ownerTx) {
-		this.ownerTx = ownerTx;
+	public void setownerTxId(int ownerTxId) {
+		this.ownerTxId = ownerTxId;
 	}
 
 	/**
@@ -131,5 +131,7 @@ public abstract class TxOperation implements Runnable {
 	public void setOperationTime(int operationTime) {
 		this.operationTime = operationTime;
 	}
+	
+	
 
 }
