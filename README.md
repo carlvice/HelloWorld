@@ -1,4 +1,4 @@
-# Zeitgeist Transaction Manager
+# Zeitgeist Transaction Manager (Work in progress)
 
 This project is the Java Implemetation of the Zeitgeist Database Transaction Manager in C.
 
