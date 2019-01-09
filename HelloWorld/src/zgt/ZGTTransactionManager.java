@@ -21,113 +21,127 @@ import operation.ReadTxOperation;
 
 /** This class implements abstract methods of TransactionManager class */
 
-public class ZGTTransactionManager extends TransactionManager{
+public class ZGTTransactionManager extends TransactionManager {
 
 	public ZGTTransactionManager(int sharedObjectListSize, int sharedObjectInitialValue, String inputFilePath,
 			String outputFilePath) {
+
 		super(sharedObjectListSize, sharedObjectInitialValue, inputFilePath, outputFilePath);
-		
-		
-		
-		
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
-	public void openLogFile() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void startOperation() throws FileNotFoundException, IOException, InterruptedException {
 
-	@Override
-	public void closeLogFile() {
-		// TODO Auto-generated method stub
-		
-	}
+		File logFile = new File(inputFilePath);
 
-	@Override
-	public void startOperation() throws FileNotFoundException,IOException, InterruptedException {
-		// TODO Auto-generated method stub
-		File logFile = new File(inputFilePath);;
 		FileReader fileReader = new FileReader(logFile);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		String lines="";
-		while((lines=bufferedReader.readLine()).contains("//"));
-		TransactionManager.outputFilePath=lines.split(" ")[1];
-		while((lines=bufferedReader.readLine())!=null)
-		{
+
+		String lines = "";
+
+		while ((lines = bufferedReader.readLine()).contains("//")) {
+			// skip the comments in the input log file
+		}
+
+		// read the output file name from the input log file
+		TransactionManager.outputFilePath = lines.split("\\s+")[1];
+
+		// read the operations in the input log file
+		while ((lines = bufferedReader.readLine()) != null) {
+
 			ZGTTransaction tx;
 			SharedObject object;
-			String linesArray[]=lines.split("\\s+");
-			if(linesArray[0].equalsIgnoreCase("BeginTx"))
-			{
-				if(linesArray[2].equalsIgnoreCase("W"))
-				{
-					tx= new ZGTTransaction(Integer.parseInt(linesArray[1]),TransactionStatus.ACTIVE,TransactionType.WRITE);
+
+			String linesArray[] = lines.split("\\s+");
+
+			// begin tx operation
+			if (linesArray[0].equalsIgnoreCase("BeginTx")) {
+
+				String txType = linesArray[2];
+
+				// tx type is read-write
+				if (txType.equalsIgnoreCase("W") || txType.equalsIgnoreCase("R")) {
+					
+					TransactionType transactionType;
+					
+					if (txType.equalsIgnoreCase("W")) {
+
+						transactionType = TransactionType.WRITE;
+					} else {
+						transactionType = TransactionType.READ;
+					}
+					
+					int txId = Integer.parseInt(linesArray[1]);
+
+					// TODO: check if tx has already begun
+
+					
+
+					// create a new tx object based on parameters from log file
+					tx = new ZGTTransaction(txId, TransactionStatus.ACTIVE, transactionType);
+
+					// add to tx list in tx manager
 					tx.addTx();
-					BeginTxOperation beginOp=new BeginTxOperation(tx.getId(), TxOperationType.BEGIN, 1);
+
+					BeginTxOperation beginOp = new BeginTxOperation(txId, TxOperationType.BEGIN, 1, transactionType);
+
 					tx.getTxOpList().add(beginOp);
+
 					beginOp.start();
+
+				} else {
+
+					System.out.println("START_OPEARTION_ERROR : Invalid Tx type in Begin operation");
 				}
-				else if(linesArray[2].equalsIgnoreCase("R"))
-				{
-					tx = new ZGTTransaction(Integer.parseInt(linesArray[1]),TransactionStatus.ACTIVE,TransactionType.READ);
-					tx.addTx();
-					BeginTxOperation beginOp=new BeginTxOperation(tx.getId(), TxOperationType.BEGIN, 1);
-					tx.getTxOpList().add(beginOp);
-					beginOp.start();
-				}
-				else
-				{
-					System.out.println("START_OPEARTION_ERROR : Invalid Tx type");
-				}
-				
-			}
-			else if(linesArray[0].equalsIgnoreCase("Read"))
-			{
-				tx=(ZGTTransaction) getTxFromId(Integer.parseInt(linesArray[1]));
-				object=getObjectFromId(Integer.parseInt(linesArray[2]));
-				ReadTxOperation readOp=new ReadTxOperation(tx.getId(), TxOperationType.READ, 2, object);
-				TxOperation lastOp=tx.getTxOpList().get(tx.getTxOpList().size()-1);
+
+			} else if (linesArray[0].equalsIgnoreCase("Read")) {
+
+				int txId = Integer.parseInt(linesArray[1]);
+
+				tx = (ZGTTransaction) getTransactionById(txId);
+
+				object = getSharedObjectById(Integer.parseInt(linesArray[2]));
+
+				ReadTxOperation readOp = new ReadTxOperation(txId, TxOperationType.READ, 2, object);
+
+				TxOperation lastOp = tx.getTxOpList().get(tx.getTxOpList().size() - 1);
+
 				lastOp.join();
+
+				tx.getTxOpList().add(readOp);
 				readOp.start();
 			}
 		}
-		
-		
-		
-		
+
 	}
 
 	@Override
 	public void endOperation() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void printTxManager() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
-	public Transaction getTxFromId(int txId) {
-		// TODO Auto-generated method stub
-		Transaction tx=TransactionManager.firstTx;
-		while(tx!=null&&tx.getId()!=txId)
-		{
-			tx=tx.next;
+	public Transaction getTransactionById(int txId) {
+
+		Transaction tx = TransactionManager.firstTx;
+		while (tx != null && tx.getId() != txId) {
+			tx = tx.next;
 		}
 		return tx;
 	}
 
 	@Override
-	public SharedObject getObjectFromId(int objId) {
-		// TODO Auto-generated method stub
-		SharedObject object=sharedObjectList.get(objId-1);
+	public SharedObject getSharedObjectById(int objId) {
+
+		SharedObject object = sharedObjectList.get(objId - 1);
 		return object;
 	}
 
-	
 }

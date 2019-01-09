@@ -1,7 +1,5 @@
 /**
- * 
  * @author Nivedita Gautam
- * 
  */
 
 package zgt;
@@ -151,8 +149,15 @@ public class ZGTTransaction extends Transaction {
 	}
 
 	@Override
-	public void performReadWrite(LockMode lockMode, SharedObject sharedObject) {
+	public void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime) {
 		
+		if (lockMode == LockMode.EXCLUSIVE) {
+			
+			sharedObject.setValue(sharedObject.getValue() + 1);
+		}
+		else {	
+			sharedObject.setValue(sharedObject.getValue() - 1);
+		}
 		
 	}
 }

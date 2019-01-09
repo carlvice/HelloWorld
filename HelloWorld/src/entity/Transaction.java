@@ -259,6 +259,6 @@ public abstract class Transaction {
 	 * @param sharedObject the object on which the operation will be performed
 	 */
 
-	public abstract void performReadWrite(LockMode lockMode, SharedObject sharedObject);
+	public abstract void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime);
 
 }

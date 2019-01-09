@@ -58,27 +58,18 @@ public abstract class TransactionManager {
 	}
 
 	/**
-	 * This method will open the log file.
-	 */
-	public abstract void openLogFile();
-
-	/**
-	 * This method will close the log file.
-	 */
-	public abstract void closeLogFile() throws FileNotFoundException;
-
-	/**
 	 * This method will read the operations from the log file one by one and start a
 	 * corresponding thread based on the type of operation. The operation thread
 	 * will wait for previous operations of the same tx to finish before starting,
 	 * this will prevent illegal schedules.
-	 * @throws FileNotFoundException 
-	 * @throws IOException 
-	 * @throws InterruptedException 
+	 * 
+	 * @throws FileNotFoundException
+	 * @throws IOException
+	 * @throws InterruptedException
 	 */
 
 	public abstract void startOperation() throws FileNotFoundException, IOException, InterruptedException;
-	
+
 	/**
 	 * This method ensure that all the lines from log file are executed and will
 	 * then call closeLogFile() method.
@@ -90,17 +81,26 @@ public abstract class TransactionManager {
 	 * Prints the current snapshot of the transaction manager
 	 */
 	public abstract void printTxManager();
-	
-	
-	/**
-	 * Return the instance of Transaction from its Id, if it exists in transactions list else returns null
-	 */
-	public abstract Transaction getTxFromId(int txId);
-	
 
 	/**
-	 * Return the instance of SharedObject from the Id, if it exists in SharedObjects list else returns null
+	 * Return the object of Transaction from the tx manager from its Id, if it exists in tx
+	 * list else returns null
+	 * 
+	 * @param txId the tx id to find
+	 * 
+	 * @return tx object based on the tx id
+	 * 
 	 */
-	public abstract SharedObject getObjectFromId(int objId);
+	public abstract Transaction getTransactionById(int txId);
+
+	/**
+	 * Return the instance of SharedObject based on the Id, if it exists in
+	 * SharedObjects list of the transaction manager else returns null
+	 * 
+	 * @param objId the obj id to find
+	 * 
+	 * @return SharedObject object based on ObjId
+	 */
+	public abstract SharedObject getSharedObjectById(int objId);
 
 }

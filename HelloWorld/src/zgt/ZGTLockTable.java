@@ -22,7 +22,7 @@ public class ZGTLockTable implements LockTable {
 			// acquire semaphore before accessing HT
 			LOCK_TABLE_SEMAPHORE.acquire();
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 		
