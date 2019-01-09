@@ -257,8 +257,9 @@ public abstract class Transaction {
 	 * @param lockMode     the lock mode acquired, the operation will be performed
 	 *                     based on the lock mode
 	 * @param sharedObject the object on which the operation will be performed
+	 * @throws InterruptedException 
 	 */
 
-	public abstract void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime);
+	public abstract void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime) throws InterruptedException;
 
 }

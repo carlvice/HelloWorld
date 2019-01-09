@@ -149,7 +149,7 @@ public class ZGTTransaction extends Transaction {
 	}
 
 	@Override
-	public void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime) {
+	public void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime) throws InterruptedException {
 		
 		if (lockMode == LockMode.EXCLUSIVE) {
 			
@@ -158,6 +158,6 @@ public class ZGTTransaction extends Transaction {
 		else {	
 			sharedObject.setValue(sharedObject.getValue() - 1);
 		}
-		
+		Thread.sleep(optTime);
 	}
 }
