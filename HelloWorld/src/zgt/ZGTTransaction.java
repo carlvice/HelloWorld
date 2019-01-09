@@ -34,7 +34,7 @@ public class ZGTTransaction extends Transaction {
 
 			// set first and last tx as current tx since it's the only tx.
 			TransactionManager.firstTx = this;
-			TransactionManager.lastTx = this;
+			TransactionManager.lastTx = this; 
 
 			// update pointers
 			TransactionManager.firstTx.next = null;
