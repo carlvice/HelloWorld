@@ -9,10 +9,10 @@ import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import entity.LockTable;
 import entity.SharedObject;
 import entity.Transaction;
 import include.LockMode;
-import include.LockTable;
 import include.TransactionManager;
 import include.TransactionStatus;
 import include.TransactionType;
@@ -108,9 +108,25 @@ public class ZGTTransaction extends Transaction {
 	}
 
 	@Override
-	public boolean setLock(LockMode lockMode, long objectNumer) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean setLock(LockMode lockMode, SharedObject sharedObject) throws InterruptedException {
+		
+		boolean granted = false;
+		
+		while (!granted) {
+			
+			LockTable.LOCK_TABLE_SEMAPHORE.acquire();
+			
+			// set the lock mode which the tx wants to acquire
+			this.setLockMode(lockMode);
+			
+			// the object on which the current tx is waiting
+			this.setSharedObject(sharedObject);
+			
+			// check if any tx has lock on obj
+			
+		}
+		
+		return granted;
 	}
 
 	@Override

@@ -240,8 +240,9 @@ public abstract class Transaction {
 	 * @param objectNumer object on which the lock is requested
 	 * 
 	 * @return true if the lock can be acquired else returns false
+	 * @throws InterruptedException 
 	 */
-	public abstract boolean setLock(LockMode lockMode, long objectNumer);
+	public abstract boolean setLock(LockMode lockMode, SharedObject sharedObject) throws InterruptedException;
 
 	/**
 	 * This method frees all the locks held by the transaction. Any other

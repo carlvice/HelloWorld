@@ -1,22 +1,55 @@
 /**
  * @author Nivedita Gautam
+ * 
  */
-package zgt;
+
+package entity;
 
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
+import java.util.concurrent.Semaphore;
 
-import entity.SharedObject;
-import entity.Transaction;
-import include.*;
+import include.LockMode;
 
-/** This class implements the abstract methods of the LockTable class. */
-public class ZGTLockTable implements LockTable {
+/**
+ * This interface defines th structure the Lock hash table and the methods that
+ * perform operations on it.
+ */
+public class LockTable {
 
-	@Override
-	public boolean findSharedObject(SharedObject sharedObject) {
+	/**
+	 * <p>
+	 * The Lock Hash Table manages all the lock requests. The entries are stored in
+	 * the form of Key, Value pairs as describe below -
+	 * </p>
+	 * 
+	 * <ul>
+	 * <li>Key: Integer - SharedObject which is locked,</li>
+	 * <li>Value: HashMap ( Integer - Id of the transaction which has lock on the
+	 * SharedObject, LockMode - The type of lock )</li>
+	 * </ul>
+	 */
+	public final static HashMap<Integer, HashMap<Integer, LockMode>> LOCK_HASH_TABLE = new HashMap<>();
+
+	/**
+	 * This semaphore is used to restrict the number of threads that can access the
+	 * lock hash table (i.e. 1). It should be acquired before accessing the lock
+	 * Hash Table, and should be released when done.
+	 */
+	public final static Semaphore LOCK_TABLE_SEMAPHORE = new Semaphore(1);
+
+	/**
+	 * Checks if the object is present in the Hash Table; returns NULL if it's not
+	 * 
+	 * @param sharedObject The object to be searched
+	 * 
+	 * @return true if an entry is found else returns false
+	 * 
+	 */
+	
+	public static boolean findSharedObject(SharedObject sharedObject) {
 		
 		try {
 			// acquire semaphore before accessing HT
@@ -33,8 +66,17 @@ public class ZGTLockTable implements LockTable {
 		return found;
 	}
 
-	@Override
-	public LockMode findSharedObject(SharedObject sharedObject, Transaction transaction) {
+	/**
+	 * Checks if a transaction holds lock on the object
+	 * 
+	 * @param sharedObject The object to be searched
+	 * @param transaction  The transaction to be searched
+	 * 
+	 * 
+	 * @return the lock mode if an entry is found else returns null
+	 * 
+	 */
+	public static LockMode findSharedObject(SharedObject sharedObject, Transaction transaction) {
 
 		try {
 			// acquire semaphore before accessing HT
@@ -54,8 +96,16 @@ public class ZGTLockTable implements LockTable {
 		return lockMode;
 	}
 
-	@Override
-	public void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
+	/**
+	 * Adds an entry to the Lock Hash Table. If used incorrectly, it will overwrite
+	 * the previous entry for the shared object in the hash table.
+	 * 
+	 * @param transaction  The transaction object who wants to acquire the lock
+	 * @param sharedObject The object on which transaction wants to acquire the lock
+	 * @param lockMode     The lock mode requested by the transaction i.e. 'S' or
+	 *                     'X'
+	 */
+	public static void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		
 		try {
 			// acquire semaphore before accessing HT
@@ -73,8 +123,16 @@ public class ZGTLockTable implements LockTable {
 		LOCK_TABLE_SEMAPHORE.release();
 	}
 
-	@Override
-	public boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
+	/**
+	 * Removes an entry from the Lock Hash Table
+	 * 
+	 * @param transaction  The transaction object holding the lock
+	 * @param sharedObject The object on which transaction holds the lock
+	 * @param lockMode     The lock mode held by the transaction i.e. 'S' or 'X'
+	 * 
+	 * @return true if entry was found and removed, false if entry was not found
+	 */
+	public static boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
 		
 		try {
 			// acquire semaphore before accessing HT
@@ -130,8 +188,11 @@ public class ZGTLockTable implements LockTable {
 		}
 	}
 
-	@Override
-	public void printHashTable() {
+	/**
+	 * Prints the hash table. Shows all the objects along with the lock mode and
+	 * transaction ID. Useful for debugging.
+	 */
+	public static void printHashTable() {
 
 		System.out.println("****************** Lock Hash Table ******************");
 		System.out.println("Object ID\tTransaction ID\tLock Mode");
@@ -169,4 +230,5 @@ public class ZGTLockTable implements LockTable {
 		LOCK_TABLE_SEMAPHORE.release();
 		System.out.println("****************** End ******************");
 	}
+
 }

@@ -23,11 +23,11 @@ public class Main {
 
 		int numberOfSharedObjects = 10;
 		int sharedObjectInitialValue = 0;
-		String inputFile = "";
+		String inputFile = "Test.txt";
 
 		// Start the TM
 		ZGTTransactionManager zgtTransactionManager = new ZGTTransactionManager(numberOfSharedObjects,
-				sharedObjectInitialValue, "Test.txt", "");
+				sharedObjectInitialValue, inputFile, "");
 		
 		// Start the transaction
 		try {
@@ -36,7 +36,7 @@ public class Main {
 		}
 		catch (FileNotFoundException fnfe) {
 			
-			System.out.println("ERROR: Could not find the input file");
+			System.out.println("MAIN_CLASS_ERROR: Could not find the input file");
 		}
 		catch (IOException ioe) {
 			// TODO: handle exception
