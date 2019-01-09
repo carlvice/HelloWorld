@@ -17,6 +17,8 @@ public interface Constants {
 	 * The initial value of all the shared objects
 	 */
 	public static final int SHARED_OBJECTS_INITIAL_VALUE = 0;
-
-
+	
+	
+	public static final String INPUT_FILE = "text.log";
+	
 }

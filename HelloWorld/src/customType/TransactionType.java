@@ -2,7 +2,7 @@
  * 
  * @author Aashish Jha
  */
-package include;
+package customType;
 
 /** This enum contains the possible types of a transaction. */
 public enum TransactionType {

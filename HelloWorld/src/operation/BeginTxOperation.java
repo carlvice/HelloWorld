@@ -4,11 +4,11 @@
 
 package operation;
 
+import customType.TransactionStatus;
+import customType.TransactionType;
+import customType.TxOperationType;
 import entity.Transaction;
 import entity.TxOperation;
-import include.TransactionStatus;
-import include.TransactionType;
-import include.TxOperationType;
 import zgt.ZGTTransaction;
 
 /**

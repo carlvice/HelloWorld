@@ -2,7 +2,7 @@
  * @author Aashish Jha
  */
 
-package include;
+package customType;
 
 /**
  * This enum contains the different types of operations a transaction can

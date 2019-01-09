@@ -3,7 +3,7 @@
  * @author Nivedita Gautam
  */
 
-package include;
+package customType;
 
 /**
  * This enum contains the different states of the transaction life-cycle

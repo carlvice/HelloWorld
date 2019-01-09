@@ -4,9 +4,9 @@
 
 package operation;
 
+import customType.TxOperationType;
 import entity.SharedObject;
 import entity.TxOperation;
-import include.TxOperationType;
 
 /**
  * This class is ReadTx Operation thread. This thread will perform the read

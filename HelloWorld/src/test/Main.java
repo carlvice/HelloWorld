@@ -8,8 +8,7 @@ package test;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-
-import zgt.ZGTTransactionManager;
+import entity.TransactionManager;
 
 /**
  * 
@@ -21,27 +20,26 @@ public class Main {
 
 	public static void main(String[] args) {
 
-		int numberOfSharedObjects = 10;
-		int sharedObjectInitialValue = 0;
-		String inputFile = "Test.txt";
+	
+		// initialize the shared objects
+		TransactionManager.initialize(Constants.NUMBER_OF_SHARED_OBJECTS, Constants.SHARED_OBJECTS_INITIAL_VALUE,
+				Constants.INPUT_FILE);
 
-		// Start the TM
-		ZGTTransactionManager zgtTransactionManager = new ZGTTransactionManager(numberOfSharedObjects,
-				sharedObjectInitialValue, inputFile, "");
-		
-		// Start the transaction
+		// read input file and Start the transactions
 		try {
+
+			TransactionManager.startOperation();
 			
-			zgtTransactionManager.startOperation();
-		}
-		catch (FileNotFoundException fnfe) {
-			
+		} catch (FileNotFoundException fnfe) {
+
 			System.out.println("MAIN_CLASS_ERROR: Could not find the input file");
-		}
-		catch (IOException ioe) {
-			// TODO: handle exception
+			
+		} catch (IOException ioe) {
+			
+			System.out.println("MAIN_CLASS_ERROR: Could not open the input file");
+			
 		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
+			
 			e.printStackTrace();
 		}
 	}

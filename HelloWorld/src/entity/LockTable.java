@@ -11,13 +11,14 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.Semaphore;
 
-import include.LockMode;
+import customType.LockMode;
+import exception.RemoveLockTableEntryException;
 
 /**
- * This interface defines th structure the Lock hash table and the methods that
+ * This interface defines the structure the Lock hash table and the methods that
  * perform operations on it.
  */
-public class LockTable {
+public final class LockTable {
 
 	/**
 	 * <p>
@@ -48,21 +49,21 @@ public class LockTable {
 	 * @return true if an entry is found else returns false
 	 * 
 	 */
-	
+
 	public static boolean findSharedObject(SharedObject sharedObject) {
-		
+
 		try {
 			// acquire semaphore before accessing HT
 			LOCK_TABLE_SEMAPHORE.acquire();
 		} catch (InterruptedException e) {
-			
+
 			e.printStackTrace();
 		}
-		
+
 		boolean found = LOCK_HASH_TABLE.containsKey(sharedObject.getId());
-		
+
 		LOCK_TABLE_SEMAPHORE.release();
-		
+
 		return found;
 	}
 
@@ -104,22 +105,19 @@ public class LockTable {
 	 * @param sharedObject The object on which transaction wants to acquire the lock
 	 * @param lockMode     The lock mode requested by the transaction i.e. 'S' or
 	 *                     'X'
+	 * @throws InterruptedException
 	 */
-	public static void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
-		
-		try {
-			// acquire semaphore before accessing HT
-			LOCK_TABLE_SEMAPHORE.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+	public static void addEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode)
+			throws InterruptedException {
+
+		// acquire semaphore before accessing HT
+		LOCK_TABLE_SEMAPHORE.acquire();
+
 		HashMap<Integer, LockMode> valueHashMap = LOCK_HASH_TABLE.get(sharedObject.getId());
 
 		valueHashMap.put(transaction.getId(), lockMode);
 		LOCK_HASH_TABLE.put(sharedObject.getId(), valueHashMap);
-		
+
 		LOCK_TABLE_SEMAPHORE.release();
 	}
 
@@ -131,9 +129,12 @@ public class LockTable {
 	 * @param lockMode     The lock mode held by the transaction i.e. 'S' or 'X'
 	 * 
 	 * @return true if entry was found and removed, false if entry was not found
+	 * 
+	 * @throws RemoveLockTableEntryException
 	 */
-	public static boolean removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode) {
-		
+	public static void removeEntry(Transaction transaction, SharedObject sharedObject, LockMode lockMode)
+			throws RemoveLockTableEntryException {
+
 		try {
 			// acquire semaphore before accessing HT
 			LOCK_TABLE_SEMAPHORE.acquire();
@@ -141,7 +142,7 @@ public class LockTable {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		// if HT has an entry for the object
 		if (LOCK_HASH_TABLE.containsKey(sharedObject.getId())) {
 
@@ -164,49 +165,39 @@ public class LockTable {
 						// remove its entry from the Hash Table
 						LOCK_HASH_TABLE.remove(sharedObject.getId());
 					}
-					
+
 					LOCK_TABLE_SEMAPHORE.release();
 
 					System.out.println("REMOVE_ENTRY_SUCCESS: Entry was removed from HT.");
-					return true;
 
 				} else {
-
-					System.out.println("REMOVE_ENTRY_ERROR: Entry not found, lock Mode did not match.");
-					return false;
+					throw new RemoveLockTableEntryException("Entry not found, lock Mode did not match.");
 				}
 			} else {
-
-				System.out.println("REMOVE_ENTRY_ERROR: Entry not found, tx does not hold lock.");
-				return false;
+				throw new RemoveLockTableEntryException("Entry not found, tx does not hold lock.");
 			}
 		} else {
-
-			System.out.println(
-					"REMOVE_ENTRY_ERROR: Entry not found, no lock on shared obj: " + sharedObject.getId() + ".");
-			return false;
+			throw new RemoveLockTableEntryException(
+					"Entry not found, no lock on shared obj: " + sharedObject.getId() + ".");
 		}
 	}
 
 	/**
 	 * Prints the hash table. Shows all the objects along with the lock mode and
 	 * transaction ID. Useful for debugging.
+	 * @throws InterruptedException 
 	 */
-	public static void printHashTable() {
+	public static void printHashTable() throws InterruptedException {
 
 		System.out.println("****************** Lock Hash Table ******************");
 		System.out.println("Object ID\tTransaction ID\tLock Mode");
-		
-		try {
-			// acquire semaphore before accessing HT
-			LOCK_TABLE_SEMAPHORE.acquire();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LOCK_HASH_TABLE.entrySet().iterator();
 
+		// acquire semaphore before accessing HT
+		LOCK_TABLE_SEMAPHORE.acquire();
+
+		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LOCK_HASH_TABLE.entrySet().iterator();
+		
+		// iterate through the nested HT
 		while (i.hasNext()) {
 
 			Map.Entry<Integer, HashMap<Integer, LockMode>> HTEntry = i.next();
@@ -226,7 +217,7 @@ public class LockTable {
 				System.out.println(objId + "\t" + txId + "\t" + lockMode);
 			}
 		}
-		
+
 		LOCK_TABLE_SEMAPHORE.release();
 		System.out.println("****************** End ******************");
 	}

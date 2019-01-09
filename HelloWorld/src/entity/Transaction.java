@@ -7,9 +7,9 @@ package entity;
 import java.util.ArrayList;
 import java.util.List;
 
-import include.LockMode;
-import include.TransactionStatus;
-import include.TransactionType;
+import customType.LockMode;
+import customType.TransactionStatus;
+import customType.TransactionType;
 
 /**
  * The Transaction class is used to represent all transactions in the system.

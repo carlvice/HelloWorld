@@ -3,7 +3,7 @@
  * @author Nivedita Gautam
  */
 
-package include;
+package customType;
 
 /** Denotes the possible lock modes that can be acquired by a transaction. */
 public enum LockMode {

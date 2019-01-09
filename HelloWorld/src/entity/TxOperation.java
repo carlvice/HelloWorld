@@ -6,7 +6,7 @@
 
 package entity;
 
-import include.TxOperationType;
+import customType.TxOperationType;
 
 /**
  * This class describes the transaction operation entity. Each statement

@@ -12,10 +12,10 @@ import java.util.Map.Entry;
 import entity.LockTable;
 import entity.SharedObject;
 import entity.Transaction;
-import include.LockMode;
-import include.TransactionManager;
-import include.TransactionStatus;
-import include.TransactionType;
+import entity.TransactionManager;
+import customType.LockMode;
+import customType.TransactionStatus;
+import customType.TransactionType;
 
 /** This class implements abstract methods of Transaction class */
 
@@ -34,7 +34,7 @@ public class ZGTTransaction extends Transaction {
 
 			// set first and last tx as current tx since it's the only tx.
 			TransactionManager.firstTx = this;
-			TransactionManager.lastTx = this; 
+			TransactionManager.lastTx = this;
 
 			// update pointers
 			TransactionManager.firstTx.next = null;
@@ -109,29 +109,37 @@ public class ZGTTransaction extends Transaction {
 
 	@Override
 	public boolean setLock(LockMode lockMode, SharedObject sharedObject) throws InterruptedException {
-		
+
 		boolean granted = false;
-		
+
 		while (!granted) {
-			
+
 			LockTable.LOCK_TABLE_SEMAPHORE.acquire();
-			
+
 			// set the lock mode which the tx wants to acquire
 			this.setLockMode(lockMode);
-			
+
 			// the object on which the current tx is waiting
 			this.setSharedObject(sharedObject);
-			
-			// check if any tx has lock on obj
-			
+
+			// if no tx has lock on the shared obj
+			if (!LockTable.findSharedObject(sharedObject)) {
+
+				// lock can be acquired, add an entry to the lock table
+				LockTable.addEntry(this, sharedObject, lockMode);
+
+			} else {
+
+			}
+
 		}
-		
+
 		return granted;
 	}
 
 	@Override
 	public void freeLocks() {
-		
+
 		try {
 			// acquire semaphore before accessing HT
 			LockTable.LOCK_TABLE_SEMAPHORE.acquire();
@@ -141,7 +149,7 @@ public class ZGTTransaction extends Transaction {
 		}
 
 		Iterator<Entry<Integer, HashMap<Integer, LockMode>>> i = LockTable.LOCK_HASH_TABLE.entrySet().iterator();
-		
+
 		// Loop through the HT
 		while (i.hasNext()) {
 
@@ -149,29 +157,29 @@ public class ZGTTransaction extends Transaction {
 
 			Integer objId = HTEntry.getKey();
 			HashMap<Integer, LockMode> valueHashMap = HTEntry.getValue();
-			
+
 			// if an object has an entry for tx, remove it
 			valueHashMap.remove(this.getId());
-			
+
 			// if object has no more locks left
 			if (valueHashMap.size() == 0) {
-				
+
 				// remove object's entry from the HT
 				LockTable.LOCK_HASH_TABLE.remove(objId);
-			}	
+			}
 		}
-		
+
 		LockTable.LOCK_TABLE_SEMAPHORE.release();
 	}
 
 	@Override
-	public void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime) throws InterruptedException {
-		
+	public void performReadWrite(LockMode lockMode, SharedObject sharedObject, int optTime)
+			throws InterruptedException {
+
 		if (lockMode == LockMode.EXCLUSIVE) {
-			
+
 			sharedObject.setValue(sharedObject.getValue() + 1);
-		}
-		else {	
+		} else {
 			sharedObject.setValue(sharedObject.getValue() - 1);
 		}
 		Thread.sleep(optTime);
