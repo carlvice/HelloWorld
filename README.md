@@ -10,7 +10,7 @@ This project is the Java Implemetation of the Zeitgeist Database Transaction Man
 
 ### Contributers - 
 
-- [Aashish Jha](https://github.com/carlvice)
+- [Aashish Jha](https://github.com/aashishjha93)
 - [Nivedita Gautam](https://github.com/Nivedita123)
 
 
